@@ -139,8 +139,9 @@ function handleGraphQLMock({ url, operations }: GraphQLMock) {
     return operations.find(o => o.operationName === operationName);
   };
   const findMockPost = postBody => {
+    const jsonBody = typeof postBody === 'string' ? JSON.parse(postBody) : postBody;
     return operations.find(
-      ({ operationName }) => operationName === postBody.operationName
+      ({ operationName }) => operationName === jsonBody.operationName
     );
   };
   const delayedResponse = (delay, response) => {
@@ -168,7 +169,7 @@ function handleGraphQLMock({ url, operations }: GraphQLMock) {
 
         FetchMock.post(
           url,
-          ({ body }) => {
+          (_, { body }) => {
             const mock = findMockPost(body);
 
             if (!mock) {
@@ -191,7 +192,7 @@ function handleGraphQLMock({ url, operations }: GraphQLMock) {
       case "mutation":
         FetchMock.post(
           url,
-          ({ body }) => {
+          (_, { body }) => {
             const mock = findMockPost(body);
 
             if (!mock) {

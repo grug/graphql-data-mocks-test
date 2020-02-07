@@ -1,8 +1,21 @@
+import gql from 'graphql-tag';
 import React from 'react';
+import { useQuery } from 'urql';
+
 import logo from './logo.svg';
 import './App.css';
 
+const Query = gql`
+  query Query {
+    test
+  }
+`;
+
 const App = () => {
+  const [result] = useQuery({ query: Query });
+
+  console.log('GraphQL result', result);
+
   return (
     <div className="App">
       <header className="App-header">
