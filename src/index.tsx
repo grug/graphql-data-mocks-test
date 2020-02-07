@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider, createClient } from "urql";
+
 import "./index.css";
 import App from "./App";
 
@@ -16,6 +18,15 @@ const mocks: Scenarios = {
       method: "GET",
       delay: 600,
       responseCode: 200
+    },
+    {
+      url: /graphql/,
+      method: 'GRAPHQL',
+      operations: [{
+        operationName: 'Query',
+        type: 'query',
+        response: { data: { test: 'test' } }
+      }],
     }
   ]
 };
@@ -30,4 +41,6 @@ fetch("http://example.com/test")
     console.log(myJson);
   });
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const client = createClient({ url: 'http://example.com/graphql' });
+
+ReactDOM.render(<Provider value={client}><App /></Provider>, document.getElementById("root"));
