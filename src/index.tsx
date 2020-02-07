@@ -26,6 +26,25 @@ const mocks: Scenarios = {
         operationName: 'Query',
         type: 'query',
         response: { data: { test: 'test' } }
+      }, {
+        operationName: 'Query2',
+        type: 'query',
+        response: { data: { test: 'test' } }
+      }, {
+        operationName: 'Mutation',
+        type: 'mutation',
+        response: { data: { test: 'test' } }
+      }],
+    }
+  ],
+  test: [
+    {
+      url: /graphql/,
+      method: 'GRAPHQL',
+      operations: [{
+        operationName: 'Query2',
+        type: 'query',
+        response: { data: { test: 'test' } }
       }],
     }
   ]
